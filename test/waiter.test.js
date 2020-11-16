@@ -15,7 +15,9 @@ describe('The waiters-Availability function', function() {
 
     beforeEach(async function() {
         // clean the tables before each test run
+        await pool.query("delete from admin_checkin;");
         await pool.query("delete from waiters;");
+        await pool.query("delete from days_working;;");
 
     });
 
@@ -25,31 +27,52 @@ describe('The waiters-Availability function', function() {
         const FactoryFunction = Waiters(pool);
 
 
-        await FactoryFunction.addUser('John')
-        await FactoryFunction.addUser('Sim')
-        await FactoryFunction.addUser('Buja')
-            // await FactoryFunction.addUser(undefined)
-            // await FactoryFunction.addUser(11233)
-            // await FactoryFunction.addUser(null)
+        await FactoryFunction.addWaiter('John')
+        await FactoryFunction.addWaiter('Sim')
+        await FactoryFunction.addWaiter('Buja')
+
 
         assert.equal(3, await FactoryFunction.getCounter())
 
 
     })
 
-    it('should not add duplicate for shifts', async function() {
+    it('should add all the week days', async function() {
 
         // the Factory Function is called regFactoryFunction
         const FactoryFunction = Waiters(pool);
 
-        await FactoryFunction.addUser('John')
-        await FactoryFunction.addUser('John')
-        await FactoryFunction.addUser('John')
+        await FactoryFunction.weekDays()
 
-        assert.equal(1, await FactoryFunction.addShiftWF())
+        assert.deepEqual(await FactoryFunction.addShiftWF(), [{
+                day_name: 'Monday'
+            },
+            {
+                day_name: 'Tuesday'
+            },
+            {
+                day_name: 'Wednesday'
+            },
+            {
+                day_name: 'Thursday'
+            },
+            {
+                day_name: 'Friday'
+            }
+        ]);
 
 
     })
+
+    it('should adds and returns the waiters shifts', async function() {
+
+        // the Factory Function is called regFactoryFunction
+        const FactoryFunction = Waiters(pool);
+
+        await FactoryFunction.addShiftWF()
+
+        assert.deepEqual(await FactoryFunction.addShift());
+    });
 
     after(function() {
         pool.end();

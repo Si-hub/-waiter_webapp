@@ -52,21 +52,24 @@ app.get("/", async function(req, res) {
 });
 
 app.get("/waiters/:username", async function(req, res) {
-    let nameField = req.body.nameField
-    let workday = req.body.workday
 
-    var add = await waiters.addShift(nameField, workday)
-    if (nameField && workday) {
-        req.flash('success', "Your shift has been added!")
-    }
     res.render("waiter", {
-        addingWaiters: add
+
     });
 });
 
 app.post("/waiters/:username", async function(req, res) {
+    let nameField = req.body.nameField
+    let workday = req.body.workday
 
-    res.render("waiter");
+    // var add = await waiters.addShiftWF(nameField, workday)
+
+    if (workday != undefined || workday != [] && nameField != '' || nameField != undefined) {
+        req.flash('success', "Your shift has successfully added!")
+    }
+    res.render("waiter", {
+        // addWaiters: add
+    });
 });
 
 app.get("/days", async function(req, res) {
