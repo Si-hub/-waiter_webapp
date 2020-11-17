@@ -65,7 +65,7 @@ app.post("/waiters/:username", async function(req, res) {
     // var add = await waiters.addShiftWF(nameField, workday)
 
     if (workday != undefined || workday != [] && nameField != '' || nameField != undefined) {
-        req.flash('success', "Your shift has successfully added!")
+        req.flash('success', "Your shift has been added. Thank you!")
     }
     res.render("waiter", {
         // addWaiters: add
