@@ -67,9 +67,13 @@ app.post("/waiters/:username", async function(req, res) {
     if (workday != undefined || workday != [] && nameField != '' || nameField != undefined) {
         req.flash('success', "Your shift has been added. Thank you!")
     }
+    // else if (!workday && !nameField) {
+    //     req.flash('error', "Please enter your name and select your day shifts")
+    // }
     res.render("waiter", {
         // addWaiters: add
     });
+
 });
 
 app.get("/days", async function(req, res) {
