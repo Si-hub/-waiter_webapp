@@ -3,7 +3,7 @@
 * {
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, "segoe ui", roboto, oxygen, ubuntu, cantarell, "fira sans", "droid sans", "helvetica neue", Arial, sans-serif;
-    font-size: 16px;
+    /* font-size: 16px; */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -13,7 +13,7 @@ body {
     padding: 0;
     box-sizing: border-box;
     width: 100%;
-    background-color: #a8a4a4;
+    background-color: #f0ebeb;
 }
 
 .appName h1 {
@@ -45,10 +45,73 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 50%;
+    width: 70%;
     background-color: #1C2836;
     padding: 100px;
     border-radius: 4px;
+}
+
+
+/* sign out icon style */
+
+.logout {
+    text-align: end;
+    display: inline-block;
+    margin-left: 85%;
+}
+
+.logout,
+.fa-sign-out {
+    font-size: 25px;
+}
+
+.logout,
+.fa-sign-out:hover {
+    color: #ffffff;
+}
+
+.topClear {
+    margin-right: 4em;
+}
+
+
+/* clear button style */
+
+#clear {
+    float: right;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 90px;
+    font-size: 16px;
+    margin-right: 5px;
+    cursor: pointer;
+    background-color: #4CAF50;
+}
+
+#clear:hover {
+    color: #000000;
+    background-color: #2f8580;
+}
+
+.moveDown {
+    margin: 2rem;
+}
+
+.box {
+    border: 1px solid #2f8580;
+    border-radius: 2px;
+    min-height: 400px;
+    padding: 4px;
+    margin: 4rem;
+}
+
+.rows {
+    width: 100%;
 }
 
 
@@ -104,8 +167,22 @@ hr {
 }
 
 .success {
-    color: green;
+    width: 300px;
+    text-align: center;
+    display: block;
+    background-color: #4caf50;
 }
+
+
+/* .success {
+    list-style: none;
+    padding: 0.1em 1em;
+    background-color: lightgrey;
+    margin: 0.5em;
+    float: left;
+    border-radius: 10px;
+    list-style: none;
+} */
 
 
 /* login form..... */

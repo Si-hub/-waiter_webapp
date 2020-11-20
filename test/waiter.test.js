@@ -42,9 +42,11 @@ describe('The waiters-Availability function', function() {
         // the Factory Function is called regFactoryFunction
         const FactoryFunction = Waiters(pool);
 
-        await FactoryFunction.weekDays()
+        await FactoryFunction.addWaiter()
 
-        assert.deepEqual(await FactoryFunction.addShiftWF(), [{
+        assert.deepEqual(await FactoryFunction.weekDays(), [{
+                day_name: 'Sunday'
+            }, {
                 day_name: 'Monday'
             },
             {
@@ -58,21 +60,21 @@ describe('The waiters-Availability function', function() {
             },
             {
                 day_name: 'Friday'
+            }, {
+                day_name: 'Saturday'
             }
         ]);
 
 
     })
 
-    it('should adds and returns the waiters shifts', async function() {
+    // it('', async function() {
 
-        // the Factory Function is called regFactoryFunction
-        const FactoryFunction = Waiters(pool);
+    //     // the Factory Function is called regFactoryFunction
+    //     const FactoryFunction = Waiters(pool);
 
-        await FactoryFunction.addShiftWF()
-
-        assert.deepEqual(await FactoryFunction.addShift());
-    });
+    //     assert.deepEqual();
+    // });
 
     after(function() {
         pool.end();

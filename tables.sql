@@ -13,11 +13,13 @@ create table days_working (
     day_name text not null
 );
 
+INSERT INTO days_working (day_name) VALUES ('Sunday');
 INSERT INTO days_working (day_name) VALUES ('Monday');
 INSERT INTO days_working (day_name) VALUES ('Tuesday');
 INSERT INTO days_working (day_name) VALUES ('Wednesday');
 INSERT INTO days_working (day_name) VALUES ('Thursday');
 INSERT INTO days_working (day_name) VALUES ('Friday');
+INSERT INTO days_working (day_name) VALUES ('Sartuday');
 
 create table admin_checkin(
     id serial not null primary key,

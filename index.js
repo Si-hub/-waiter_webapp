@@ -51,36 +51,63 @@ app.get("/", async function(req, res) {
     res.render("waiter");
 });
 
-app.get("/waiters/:username", async function(req, res) {
+app.get("/login", async function(req, res) {
 
+
+    res.render("");
+});
+
+app.get("/sign-up", async function(req, res) {
+
+
+    res.render("");
+});
+
+app.get('/waiters/:username', async function(req, res) {
+    let username = req.params.username
+
+    let getuser = await waiters.getWaiter(username)
+    let weekdays = await waiters.getDays(username);
+
+    // console.log(weekdays)
     res.render("waiter", {
-
+        daynames: weekdays,
+        username,
+        getuser
     });
 });
 
-app.post("/waiters/:username", async function(req, res) {
-    let nameField = req.body.nameField
+app.post('/waiters/:username', async function(req, res) {
+    let username = req.params.username
+
     let workday = req.body.workday
+    await waiters.getDays(username);
 
-    // var add = await waiters.addShiftWF(nameField, workday)
+    // var add = await waiters.addWaiter(nameField, workday)
+    await waiters.addShift(username, workday)
 
-    if (workday != undefined || workday != [] && nameField != '' || nameField != undefined) {
+    if (workday != undefined || workday != [] && username != '' || username != undefined) {
         req.flash('success', "Your shift has been added. Thank you!")
+    } else {
+        req.flash('error', "Please enter your name and select your day shifts")
     }
-    // else if (!workday && !nameField) {
-    //     req.flash('error', "Please enter your name and select your day shifts")
-    // }
-    res.render("waiter", {
-        // addWaiters: add
-    });
+
+    res.redirect('/waiters/' + username);
 
 });
 
 app.get("/days", async function(req, res) {
+    await waiters.getDays();
 
-    res.render("admin");
+    res.render("days");
 });
 
+app.get('/clear', async function(req, res) {
+
+    await waiters.deleteShifts();
+    req.flash('success', 'You have Succesfully deleted shift');
+    res.redirect('days');
+});
 
 
 //telling the server what port to listen on

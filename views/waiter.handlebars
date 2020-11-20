@@ -1,41 +1,48 @@
 <div class="container">
 
-    <form action="/waiters/:username" method="post">
+    <form action="/waiters/{{username}}" method="post">
+        {{!-- <div class="logout">
+            <a href="/logout"> <i class="fa fa-sign-out"></i></a>
+        </div> --}}
+
         <div class="appName">
-            <h1>Waiter Availability Web-App</h1>
+            <h1>Waiter Availability</h1>
         </div>
+
         <br>
 
         <div class="row-App">
             <div class="waiterName">
                 <span>Name</span>
-                <input type="text" class="nameField" placeholder="please enter name...">
+                <input type="text" class="nameField" name="nameField" placeholder="please enter name...">
             </div>
         </div>
         <br>
 
         <div class="days">
-            <input type="checkbox" id="workday" value="monday" name="workday"> Monday
-            <input type="checkbox" id="workday" value="tuesday" name="workday"> Tuesday
-            <input type="checkbox" id="workday" value="wednesday" name="workday"> Wednesday
-            <input type="checkbox" id="workday" value="thursday" name="workday"> Thursday
-            <input type="checkbox" id="workday" value="friday" name="workday"> Friday
+
+            {{#each daynames}}
+            <input type="checkbox" id="{{this.id}}" value="Sunday" name="workday">{{this.day_name}}
+            {{/each}}
         </div>
         <br>
         <br>
-       
+
         <div class="buttons">
-            <button class="button-primary submitBtn " type="submit" name="button">Submit</button>
-            <a href="/admin" class="button-secondary admin" name="reset">Admin</a>
-            <a href="/" class="button-secondary admin" name="login">Back to login</a>
+            <button class="button-primary submitBtn " type="submit">add shifts</button>
+            {{!-- <a href="/admin" class="button-secondary admin" name="reset">Admin</a>
+            <a href="/" class="button-secondary admin" name="login">Back to login</a> --}}
         </div>
         <hr>
-        <div class="display">
-            <div class="success">
-                <p>{{messages.success}}</p>
-            </div>
+        {{!-- <div class="display">
+
+        </div> --}}
+
+        {{#if messages.success}}
+        <div class="success">
+            <p>{{messages.success}}</p>
         </div>
+        {{/if}}
 
     </form>
 </div>
-
