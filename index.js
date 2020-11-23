@@ -72,7 +72,7 @@ app.get('/waiters/:username', async function(req, res) {
 
     // console.log(weekdays)
     res.render("waiter", {
-        daynames: weekdays,
+        day_name: weekdays,
         username: userName,
         getuser
     });
