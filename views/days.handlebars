@@ -1,23 +1,71 @@
-<h1>Booked shifts</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+            <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            
+
+</head>
+<body>
+    <div class="booked-heading">
+
+    <h1>Booked shifts</h1>
+</div>
+
 
 <div class="topClear">
-       <a href="/clear">
+    <a href="/clear">
         <button type="submit" id="clear"><i class="icon-trash"></i>Reset</button>
-         </a> 
-  </div>
+    </a>
+</div>
 
+
+{{!-- <i class="green">3 waiters on the shift </i>
+    <br><br>
+    <i class="orange">less then 3 waiters on the shift</i>
+    <br><br>
+    <i class="red">more than 3 waiters on the shift</i>
+    <br><br> --}}
 
 <div class="box ">
     <div class="moveDown">
-        <div class="rows moveDown">
-            <div class="two row">
-{{!-- 
-                {{#each }}
-                <ul id="shiftdays">
+        <table class="responsive-table">
+{{#each }}
+            <thead>
+                <tr>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Saturday</th>
+                    <th>Sunday</th>
+                </tr>
+            </thead>
 
-                </ul>
-                {{/each}} --}}
-            </div>
-        </div>
+            <tbody>
+                <tr>
+                    <td>this.waiter_name</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+{{/each}}
+        </table>
+
     </div>
 </div>
+</div>
+</body>
+</html>

@@ -7,22 +7,37 @@
 
         <div class="appName">
             <h1>Waiter Availability</h1>
+
+            <h3 class="greetText">Hello, <span>{{username}}!</span></h3>
         </div>
 
-        <br>
-
         <div class="row-App">
+
             <div class="waiterName">
-                <span>Name</span>
-                <input type="text" class="nameField" name="nameField" placeholder="please enter name...">
+                <span for="">Name:</span>
+                <input placeholder="Placeholder" value="{{username}}" type="text" class="nameField" name="nameField">
+                
             </div>
+
+            {{!-- <div class="waiterName">
+                <span>Name</span>
+                <input type="text" class="nameField" name="nameField" value="{{username}}"
+                    placeholder="please enter name...">
+            </div> --}}
         </div>
         <br>
 
         <div class="days">
 
             {{#each daynames}}
-            <input type="checkbox" id="{{this.id}}" value="Sunday" name="workday">{{this.day_name}}
+            {{!-- <p> --}}
+
+            <label>
+                <input type="checkbox" id="{{this.id}}" value={{this.day_name}} name="workday" />
+                <span>{{this.day_name}}</span>
+            </label>
+            {{!-- </p> --}}
+            {{!-- <input type="checkbox" id="{{this.id}}" value={{this.day_name}} name="workday">{{this.day_name}} --}}
             {{/each}}
         </div>
         <br>

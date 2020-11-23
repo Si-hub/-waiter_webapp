@@ -12,31 +12,40 @@ module.exports = function FactoryFunction(pool) {
 
     // async function admin() {
 
-    //     selected = await pool.query('select * from admin_checkin where  waiters_name=$1 AND shift_days=$2 ', [enteredName])
+    //     selected = await pool.query('select * from dayShifts where  waiters_name=$1 AND shift_days=$2 ', [enteredName])
     // }
 
 
     async function getDays() {
-        let selectDay = await pool.query('select * from days_working')
+        let selectDay = await pool.query('select * from  weekdays')
         return selectDay.rows;
     }
 
     async function addShift(userId, dayId) {
-
-        let dayID
-        for (const day of dayId) {
-            dayID = await weekDays(day)
-        }
-
         let nameId = await getWaiter(userId);
-        console.log(nameId)
-        await pool.query('INSERT INTO admin_checkin(waiter_id, day_id) VALUES ($1,$2) ', [nameId, dayID])
 
+        for (const day of dayId) {
+            let dayID = await weekDays(day)
+            console.log(dayID)
+            await pool.query('INSERT INTO dayShifts (waiter_id, day_id) VALUES ($1,$2) ', [nameId, dayID])
+        }
 
     }
 
+    // async function groupedUsers() {
+    //     days = [
+    //         { day: },
+
+    //         {
+    //             waiter:
+    //         }
+    //     ]
+
+
+    // }
+
     // async function getDayId(id) {
-    //     let getId = await pool.query('select * from admin_checkin where id=$1', [id])
+    //     let getId = await pool.query('select * from dayShifts where id=$1', [id])
     //         // var dayId = getId.rows.length
     //     if (dayId > 0) {
     //         return true
@@ -66,7 +75,7 @@ module.exports = function FactoryFunction(pool) {
     // };
     async function weekDays(day_id) {
 
-        let insertDays = await pool.query('select id from days_working where day_name=$1', [day_id])
+        let insertDays = await pool.query('select id from  weekdays where day_name=$1', [day_id])
             // return insertDays.rows[0].id
         return insertDays.rows[0].id
     }
@@ -88,9 +97,14 @@ module.exports = function FactoryFunction(pool) {
     }
 
     async function deleteShifts() {
-        let clear = await pool.query('DELETE FROM admin_checkin');
+        let clear = await pool.query('DELETE FROM dayShifts');
         return clear.rows;
     }
+    // async function timeOut() {
+    //     setTimeout( => (req, res, next) {
+    //         document.querySelector(".pass").innerHTML = ""
+    //     }, 1000)
+    // }
 
     return {
         addWaiter,
