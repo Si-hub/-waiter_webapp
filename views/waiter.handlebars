@@ -39,19 +39,19 @@
         
         <button class="button-secondary homeBtn" type="submit"><a href="/"><i class="fas fa-home"></i> Home</a></button>
         <hr>
-
+<div class="passed">
         {{#if messages.success}}
         <div class="success">
             <p>{{messages.success}}</p>
         </div>
         {{/if}}
-
+</div>
     </form>
 </div>
 
 <script>
     setTimeout(function () {
-        document.querySelector(".success").innerHTML = ""
+        document.querySelector(".passed").innerHTML = ""
     }, 6000)
 
 </script>
