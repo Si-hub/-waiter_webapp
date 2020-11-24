@@ -1,6 +1,7 @@
 module.exports = function FactoryFunction(pool) {
 
     const getWaiter = async(name) => {
+        name = name.toUpperCase().charAt(0) + name.slice(1);
         const result = await pool.query('SELECT waiter_name FROM waiters WHERE waiter_name =$1', [name]);
         // return result.rows[0].id
         if (result.rowCount === 0) {
@@ -26,23 +27,44 @@ module.exports = function FactoryFunction(pool) {
 
         for (const day of dayId) {
             let dayID = await weekDays(day)
-            console.log(dayID)
+
             await pool.query('INSERT INTO dayShifts (waiter_id, day_id) VALUES ($1,$2) ', [nameId, dayID])
         }
 
     }
+    async function allShifts() {
+        let storedshifts = await pool.query('SELECT waiters.waiter_name, weekdays.day_name FROM dayShifts JOIN waiters ON waiters.id = dayShifts.waiter_id JOIN weekdays ON weekdays.id = dayShifts.day_id;')
+        return storedshifts.rows
+    }
 
-    // async function groupedUsers() {
-    //     days = [
-    //         { day: },
+    async function groupedShifts() {
 
-    //         {
-    //             waiter:
-    //         }
-    //     ]
+        let shifts = await allShifts();
+        const shiftsArray = [{
+            day: 'Sunday',
+            Waiters: []
+        }, {
+            day: 'Monday',
+            Waiters: []
+        }, {
+            day: 'Tuesday',
+            Waiters: []
+        }, {
+            day: 'Wednesday',
+            Waiters: []
+        }, {
+            day: 'Thursday',
+            Waiters: []
+        }, {
+            day: 'Friday',
+            Waiters: []
+        }, {
+            day: 'Saturday',
+            Waiters: []
+        }]
 
 
-    // }
+    }
 
     // async function getDayId(id) {
     //     let getId = await pool.query('select * from dayShifts where id=$1', [id])
@@ -81,6 +103,7 @@ module.exports = function FactoryFunction(pool) {
     }
 
     async function addWaiter(enteredName) {
+        enteredName = enteredName.toUpperCase().charAt(0) + enteredName.slice(1);
         if (enteredName !== "") {
             await pool.query('insert into waiters (waiter_name) values ($1)', [enteredName])
             return true;
@@ -100,19 +123,16 @@ module.exports = function FactoryFunction(pool) {
         let clear = await pool.query('DELETE FROM dayShifts');
         return clear.rows;
     }
-    // async function timeOut() {
-    //     setTimeout( => (req, res, next) {
-    //         document.querySelector(".pass").innerHTML = ""
-    //     }, 1000)
-    // }
+
 
     return {
+        allShifts,
         addWaiter,
         getCounter,
         deleteShifts,
         addShift,
         getDays,
-        // addShiftWF,
+        groupedShifts,
         getWaiter,
         weekDays
     }

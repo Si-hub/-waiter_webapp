@@ -13,7 +13,8 @@ body {
     padding: 0;
     box-sizing: border-box;
     width: 100%;
-    background: url(/images/jan-huber-8BExAAp7Ntg-unsplash.jpg);
+    background: url(/images/mike-kenneally-zlwDJoKTuA8-unsplash.jpg);
+    background-size: cover;
 }
 
 .appName h1 {
@@ -36,9 +37,8 @@ body {
 }
 
 .button-secondary:hover {
-    color: #FFF;
-    background-color: #a89067;
-    border-color: #a39274;
+    background-color: #12a19a;
+    border-color: #393939;
 }
 
 .container {
@@ -128,7 +128,8 @@ body {
     font-family: 'Rock Salt', cursive;
 }
 
-.green {
+
+/* .green {
     color: black;
     background-color: rgb(39, 155, 39);
     border-radius: 3px;
@@ -151,7 +152,7 @@ body {
     border-radius: 3px;
     width: fit-content;
     align-content: center;
-}
+} */
 
 
 /* home page style */
@@ -167,7 +168,8 @@ body {
 
 /* button style */
 
-.button-primary {
+.button-primary,
+.button-secondary {
     box-sizing: border-box;
     cursor: pointer;
     border-radius: 20px;
@@ -186,6 +188,18 @@ body {
     font-weight: 600;
     line-height: 38px;
     margin: 0;
+}
+
+.button-secondary a {
+    text-decoration: none;
+    color: white;
+}
+
+
+/* logout icon style */
+
+.logout {
+    color: white;
 }
 
 .buttons a {
@@ -344,20 +358,7 @@ span a {
 }
 
 
-/* table style */
-
-
-/* table {
-    border: 1px solid#393939;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-tr,
-td,
-th {
-    border: 1px solid#393939;
-    padding: 10px; */
-
-
-}
+/* .context,
+span {
+    color: orange;
+} */

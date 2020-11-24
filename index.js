@@ -64,18 +64,22 @@ app.get("/sign-up", async function(req, res) {
 });
 
 app.get('/waiters/:username', async function(req, res) {
-    let userName = req.params.username
+    try {
+        let userName = req.params.username
 
 
-    let getuser = await waiters.getWaiter(userName)
-    let weekdays = await waiters.getDays(userName);
+        let getuser = await waiters.getWaiter(userName)
+        let weekdays = await waiters.getDays(userName);
 
-    // console.log(weekdays)
-    res.render("waiter", {
-        day_name: weekdays,
-        username: userName,
-        getuser
-    });
+        // console.log(weekdays)
+        res.render("waiter", {
+            daynames: weekdays,
+            username: userName,
+            getuser
+        });
+    } catch (error) {
+        next(error);
+    }
 });
 
 app.post('/waiters/:username', async function(req, res) {
@@ -84,8 +88,8 @@ app.post('/waiters/:username', async function(req, res) {
     let workday = req.body.workday;
 
     await waiters.getDays(username);
-    console.log(workday)
-        // var add = await waiters.addWaiter(nameField, workday)
+
+    // var add = await waiters.addWaiter(nameField, workday)
     await waiters.addShift(username, workday)
 
     if (workday != undefined || workday != [] && username != '' || username != undefined) {
@@ -99,11 +103,9 @@ app.post('/waiters/:username', async function(req, res) {
 });
 
 app.get("/days", async function(req, res) {
-    let displayWaiter = await waiters.getWaiter();
+    await waiters.getDays();
 
-    res.render("days", {
-        waiter_name: displayWaiter
-    });
+    res.render("days");
 });
 
 app.get('/clear', async function(req, res) {
