@@ -64,9 +64,10 @@ app.get("/sign-up", async function(req, res) {
 });
 
 app.get('/waiters/:username', async function(req, res) {
+
     try {
         let userName = req.params.username
-
+        userName = userName.toUpperCase().charAt(0) + userName.slice(1);
 
         let getuser = await waiters.getWaiter(userName)
         let weekdays = await waiters.getDays(userName);
@@ -103,7 +104,7 @@ app.post('/waiters/:username', async function(req, res) {
 });
 
 app.get("/days", async function(req, res) {
-    await waiters.getDays();
+    await waiters.groupedShifts();
 
     res.render("days");
 });

@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <!-- Compiled and minified CSS -->
+    {{!-- <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
     <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> --}}
 
 
 </head>
@@ -23,37 +23,25 @@
 
     <div class="topClear">
         <a href="/clear">
-            <button type="submit" id="clear"><i class="icon-trash"></i><i class="fas fa-trash-restore"></i> Reset</button>
+            <button type="submit" id="clear"><i class="icon-trash"></i><i class="fas fa-trash-restore"></i>
+                Reset</button>
         </a>
     </div>
 
     <div class="box ">
         <div class="moveDown">
+
             <table class="responsive-table">
 
-                <thead>
-                    <tr>
-                        <th>Monday</th>
-                        <th>Tuesday</th>
-                        <th>Wednesday</th>
-                        <th>Thursday</th>
-                        <th>Friday</th>
-                        <th>Saturday</th>
-                        <th>Sunday</th>
-                    </tr>
-                </thead>
 
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
+                <tr>
+                    {{!-- {{#each }} --}}
+
+                    <th>Monday</th>
+
+                    <td>Sim</td>
+                </tr>
+                {{!-- {{/each}} --}}
 
             </table>
 

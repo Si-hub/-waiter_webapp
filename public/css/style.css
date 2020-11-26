@@ -357,8 +357,17 @@ span a {
     margin-right: 6em;
 }
 
+th,
+td {
+    text-align: center;
+    border-left: 1px solid #393939;
+}
 
-/* .context,
-span {
-    color: orange;
-} */
+th {
+    border-bottom: 1px solid #393939;
+}
+
+table {
+    border-collapse: collapse;
+    width: 90%;
+}

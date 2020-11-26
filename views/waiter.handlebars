@@ -32,20 +32,22 @@
         <br>
         <br>
 
-        <div style="display: inline-block;"class="buttons">
-            <button class="button-primary submitBtn " type="submit"><i class="fas fa-plus-square"></i> add shifts</button>
-           
+        <div style="display: inline-block;" class="buttons">
+            <button class="button-primary submitBtn " type="submit"><i class="fas fa-plus-square"></i> add
+                shifts</button>
+
         </div>
-        
+
         <button class="button-secondary homeBtn" type="submit"><a href="/"><i class="fas fa-home"></i> Home</a></button>
         <hr>
-<div class="passed">
-        {{#if messages.success}}
-        <div class="success">
-            <p>{{messages.success}}</p>
+        
+        <div class="passed">
+            {{#if messages.success}}
+            <div class="success">
+                <p>{{messages.success}}</p>
+            </div>
+            {{/if}}
         </div>
-        {{/if}}
-</div>
     </form>
 </div>
 

@@ -33,37 +33,26 @@ module.exports = function FactoryFunction(pool) {
 
     }
     async function allShifts() {
-        let storedshifts = await pool.query('SELECT waiters.waiter_name, weekdays.day_name FROM dayShifts JOIN waiters ON waiters.id = dayShifts.waiter_id JOIN weekdays ON weekdays.id = dayShifts.day_id;')
+        let storedshifts = await pool.query(`SELECT waiters.waiter_name, weekdays.day_name FROM dayShifts 
+        JOIN waiters ON waiters.id = dayShifts.waiter_id 
+        JOIN weekdays ON weekdays.id = dayShifts.day_id;
+                `)
         return storedshifts.rows
     }
 
     async function groupedShifts() {
 
         let shifts = await allShifts();
-        const shiftsArray = [{
-            day: 'Sunday',
-            Waiters: []
-        }, {
-            day: 'Monday',
-            Waiters: []
-        }, {
-            day: 'Tuesday',
-            Waiters: []
-        }, {
-            day: 'Wednesday',
-            Waiters: []
-        }, {
-            day: 'Thursday',
-            Waiters: []
-        }, {
-            day: 'Friday',
-            Waiters: []
-        }, {
-            day: 'Saturday',
-            Waiters: []
-        }]
+        const shiftsArray = await getDays()
+        let array = []
 
+        for (var i = 0; i < shiftsArray.length; i++) {
+            var day = shiftsArray[i]
+            let shiftObject = {
 
+            }
+        }
+        console.log(day);
     }
 
     // async function getDayId(id) {
