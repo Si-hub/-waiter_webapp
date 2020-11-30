@@ -11,12 +11,6 @@ module.exports = function FactoryFunction(pool) {
         return selectId.rows[0].id
     }
 
-    // async function admin() {
-
-    //     selected = await pool.query('select * from dayShifts where  waiters_name=$1 AND shift_days=$2 ', [enteredName])
-    // }
-
-
     async function getDays() {
         let selectDay = await pool.query('select * from  weekdays')
         return selectDay.rows;
@@ -24,6 +18,9 @@ module.exports = function FactoryFunction(pool) {
 
     async function addShift(userId, dayId) {
         let nameId = await getWaiter(userId);
+        console.log(nameId);
+        let stopDuplicate = await pool.query("DELETE FROM dayShifts where  waiter_id=$1", [nameId])
+            // return stopDuplicate.rows
 
         for (const day of dayId) {
             let dayID = await weekDays(day)
@@ -40,50 +37,74 @@ module.exports = function FactoryFunction(pool) {
         return storedshifts.rows
     }
 
-    async function groupedShifts() {
+    async function groupedShifts(name) {
 
-        let shifts = await allShifts();
-        const shiftsArray = await getDays()
+        let storedShifts = await allShifts();
+
+        let shiftsDays = await getDays()
+
+
         let array = []
 
-        for (var i = 0; i < shiftsArray.length; i++) {
-            var day = shiftsArray[i]
+        for (var i = 0; i < shiftsDays.length; i++) {
+            const day = shiftsDays[i]
             let shiftObject = {
-
+                dayArray: day.day_name,
+                waiterName: []
             }
+            array.push(shiftObject)
         }
-        console.log(day);
+
+        for (const data of array) {
+
+            for (const list of storedShifts) {
+
+                if (data.dayArray === list.day_name) {
+                    data.waiterName.push(list.waiter_name)
+                }
+            }
+
+        }
+
+        array.forEach(element => {
+            if (element.waiterName.length > 3) {
+                element.days = "red"
+
+            } else if (element.waiterName.length > 0 && element.waiterName.length < 3) {
+                element.days = "orange"
+            } else if (element.waiterName.length === 3) {
+                element.days = "green"
+            }
+        });
+        return array
     }
 
-    // async function getDayId(id) {
-    //     let getId = await pool.query('select * from dayShifts where id=$1', [id])
-    //         // var dayId = getId.rows.length
-    //     if (dayId > 0) {
-    //         return true
-    //     } else if (dayId === 0) {
-    //         return false;
-    //     }
+    async function daysForUserChecked(name) {
+        const weekdays = await getWeekDays()
+        const working = await checked(name)
 
-    // }
-    /* this function will help to avoid duplicate*/
-    // async function addShiftWF(name, ids) {
-    //     let user = await getWaiter(name);
+        weekdays.forEach(week => {
+            for (const workingDays of working) {
+                if (week.day_name === workingDays.day_name) {
+                    week.checked = "checked"
+                }
+            }
+        })
+        return weekdays
+    }
 
-    //     /*add username if he/she doesnt exist*/
-    //     console.log(user.length)
-    //     if (user.rowCount === 0) {
-    //         await addWaiter(name);
-    //         user = await getWaiter(name)
-    //             // await days()
+    async function getWeekDays() {
+        let onlyDays = await pool.query('select day_name from weekdays')
+        return onlyDays.rows
+    }
 
-    //         /*add day shifts for each day */
-    //         ids.forEach(async(id) => {
-    //             await addShift(user.id, id)
-    //         })
+    async function checked(name) {
+        let check = await pool.query(`SELECT weekdays.day_name FROM dayShifts 
+        JOIN waiters ON waiters.id = dayShifts.waiter_id 
+        JOIN weekdays ON weekdays.id = dayShifts.day_id where waiter_name=$1`, [name])
+        return check.rows
+    }
 
-
-    //     }
-    // };
     async function weekDays(day_id) {
 
         let insertDays = await pool.query('select id from  weekdays where day_name=$1', [day_id])
@@ -92,7 +113,7 @@ module.exports = function FactoryFunction(pool) {
     }
 
     async function addWaiter(enteredName) {
-        enteredName = enteredName.toUpperCase().charAt(0) + enteredName.slice(1);
+        // enteredName = enteredName.toUpperCase().charAt(0) + enteredName.slice(1);
         if (enteredName !== "") {
             await pool.query('insert into waiters (waiter_name) values ($1)', [enteredName])
             return true;
@@ -115,6 +136,8 @@ module.exports = function FactoryFunction(pool) {
 
 
     return {
+        checked,
+        getWeekDays,
         allShifts,
         addWaiter,
         getCounter,
@@ -123,7 +146,8 @@ module.exports = function FactoryFunction(pool) {
         getDays,
         groupedShifts,
         getWaiter,
-        weekDays
+        weekDays,
+        daysForUserChecked
     }
 
 };

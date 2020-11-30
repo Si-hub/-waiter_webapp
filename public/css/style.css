@@ -129,32 +129,6 @@ body {
 }
 
 
-/* .green {
-    color: black;
-    background-color: rgb(39, 155, 39);
-    border-radius: 3px;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.orange {
-    color: black;
-    background-color: rgb(245, 180, 60);
-    border-radius: 3px;
-    width: fit-content;
-    align-content: center;
-}
-
-.red {
-    color: black;
-    background-color: rgb(219, 28, 66);
-    border-radius: 3px;
-    width: fit-content;
-    align-content: center;
-} */
-
-
 /* home page style */
 
 .home-container {
@@ -238,17 +212,6 @@ hr {
     padding: 0.1px;
     border-radius: 4px;
 }
-
-
-/* .success {
-    list-style: none;
-    padding: 0.1em 1em;
-    background-color: lightgrey;
-    margin: 0.5em;
-    float: left;
-    border-radius: 10px;
-    list-style: none;
-} */
 
 
 /* login form..... */
@@ -357,17 +320,56 @@ span a {
     margin-right: 6em;
 }
 
-th,
 td {
-    text-align: center;
-    border-left: 1px solid #393939;
+    text-align: left;
+    border: 1px solid #393939;
 }
 
+td,
 th {
-    border-bottom: 1px solid #393939;
+    border: 1px solid #393939;
+    padding: 5px;
+}
+
+tr:nth-child(even) {
+    background-color: #ebe3e3;
+}
+
+tr:hover {
+    background-color: #ddd;
 }
 
 table {
+    border: 1px solid #393939;
     border-collapse: collapse;
     width: 90%;
+}
+
+
+/* keys style */
+
+.keyColors .keys {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.keyColors {
+    margin: 0 4em;
+    width: 80%;
+    /* border: 1px solid black; */
+}
+
+.red {
+    background-color: red;
+}
+
+.orange {
+    background-color: orange;
+}
+
+.green {
+    background-color: green;
 }

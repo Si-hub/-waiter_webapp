@@ -42,11 +42,7 @@ describe('The waiters-Availability function', function() {
         // the Factory Function is called regFactoryFunction
         const FactoryFunction = Waiters(pool);
 
-        await FactoryFunction.addWaiter()
-
-        assert.deepEqual(await FactoryFunction.weekDays(), [{
-                day_name: 'Sunday'
-            }, {
+        assert.deepEqual(await FactoryFunction.getWeekDays(), [{
                 day_name: 'Monday'
             },
             {
@@ -62,21 +58,117 @@ describe('The waiters-Availability function', function() {
                 day_name: 'Friday'
             }, {
                 day_name: 'Saturday'
+            }, {
+                day_name: 'Sunday'
             }
         ]);
 
 
     })
 
-    // it('', async function() {
+    it('should allow a user to add shift', async function() {
 
-    //     // the Factory Function is called regFactoryFunction
-    //     const FactoryFunction = Waiters(pool);
+        // the Factory Function is called regFactoryFunction
+        const FactoryFunction = Waiters(pool);
+        await FactoryFunction.weekDays()
+        await FactoryFunction.addWaiter('simthera', 'Monday', 'Tuesday', 'Friday ')
+        let shiftObject = {
+            waiterName: 'simthera',
+            dayArray: ['Monday',
+                'Tuesday',
+                'Friday'
+            ]
 
-    //     assert.deepEqual();
-    // });
-
-    after(function() {
-        pool.end();
+        }
+        assert.deepEqual();
     });
+
+    it('should get all weekdays with checked days as specified user', async function() {
+
+        // the Factory Function is called regFactoryFunction
+        const FactoryFunction = Waiters(pool);
+        let shiftObject = {
+            waiterName: 'sipho',
+            dayArray: ['Monday',
+                'Tuesday',
+                'Thursday'
+            ]
+
+        }
+        await FactoryFunction.addWaiter(shiftObject)
+
+        assert.deepEqual(await FactoryFunction.getWeekDays(), [{
+                day_name: 'Monday',
+                checked: true
+            },
+            {
+                day_name: 'Tuesday',
+                checked: true
+            },
+            {
+                day_name: 'Wednesday'
+            },
+            {
+                day_name: 'Thursday',
+                checked: true
+            },
+            {
+                day_name: 'Friday'
+            }, {
+                day_name: 'Saturday'
+            }, {
+                day_name: 'Sunday'
+            }
+        ]);
+
+
+    })
+
+    it('shift must be waiterName and a days', async function() {
+
+        // the Factory Function is called regFactoryFunction
+        const FactoryFunction = Waiters(pool);
+        await FactoryFunction.addShift()
+
+        let shiftObject = {
+            waiterName: 'Ovayo',
+            dayArray: ['Saturday',
+                'Sunday',
+                'Monday'
+            ]
+
+        }
+        assert.deepEqual(await FactoryFunction.allShifts(), [{
+            waiterName: 'Ovayo',
+            dayArray: ['Saturday']
+        }, {
+            waiterName: 'Ovayo',
+            dayArray: ['Sunday']
+        }, {
+            waiterName: 'Ovayo',
+            dayArray: ['Monday']
+        }]);
+    });
+});
+
+describe('it must not add duplicate of a user or waiter', function() {
+    it('shouls clear all shifts', async function() {
+        const FactoryFunction = Waiters(pool);
+
+        await FactoryFunction.addWaiter('sim')
+        await FactoryFunction.addWaiter('sim')
+
+        assert.deepEqual(1, await FactoryFunction.daysForUserChecked('sim'))
+    })
+})
+
+describe('clear function for shifts', function() {
+    it('shouls clear all shifts', async function() {
+        const FactoryFunction = Waiters(pool);
+
+        assert.deepEqual(await FactoryFunction.deleteShifts(), [])
+    })
+})
+after(function() {
+    pool.end();
 });

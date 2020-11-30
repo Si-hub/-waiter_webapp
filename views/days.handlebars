@@ -20,6 +20,18 @@
         <h1>Booked shifts</h1>
     </div>
 
+    <div class="keyColors">
+        <div>
+            <div class="keys" style="background-color: orange;"></div>Less than 3 waiters
+        </div>
+        <div>
+            <div class="keys" style="background-color: green;"></div>Enough Waiters
+        </div>
+        <div>
+            <div class="keys" style="background-color: red;"></div>More than 3 waiters
+        </div>
+
+    </div>
 
     <div class="topClear">
         <a href="/clear">
@@ -31,17 +43,19 @@
     <div class="box ">
         <div class="moveDown">
 
-            <table class="responsive-table">
+            <table class="roundedCorners">
 
+
+
+                {{#each groupdays}}
 
                 <tr>
-                    {{!-- {{#each }} --}}
-
-                    <th>Monday</th>
-
-                    <td>Sim</td>
+                   
+                    <th class="{{days}}">{{this.dayArray}}</th>
+                    <td>{{this.waiterName}}</td>
                 </tr>
-                {{!-- {{/each}} --}}
+                
+                {{/each}}
 
             </table>
 

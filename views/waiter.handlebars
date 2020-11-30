@@ -25,7 +25,7 @@
 
             {{#each daynames}}
 
-            <input type="checkbox" id="{{this.id}}" value={{this.day_name}} name="workday">{{this.day_name}}
+            <input type="checkbox" {{checked}} id="{{this.id}}" value={{this.day_name}} name="workday">{{this.day_name}}
             {{/each}}
 
         </div>
@@ -40,6 +40,7 @@
 
         <button class="button-secondary homeBtn" type="submit"><a href="/"><i class="fas fa-home"></i> Home</a></button>
         <hr>
+
         
         <div class="passed">
             {{#if messages.success}}

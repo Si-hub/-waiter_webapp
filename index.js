@@ -63,7 +63,7 @@ app.get("/sign-up", async function(req, res) {
     res.render("");
 });
 
-app.get('/waiters/:username', async function(req, res) {
+app.get('/waiters/:username', async function(req, res, next) {
 
     try {
         let userName = req.params.username
@@ -71,10 +71,10 @@ app.get('/waiters/:username', async function(req, res) {
 
         let getuser = await waiters.getWaiter(userName)
         let weekdays = await waiters.getDays(userName);
-
-        // console.log(weekdays)
+        let shift = await waiters.daysForUserChecked(userName)
+            // console.log(weekdays)
         res.render("waiter", {
-            daynames: weekdays,
+            daynames: shift,
             username: userName,
             getuser
         });
@@ -104,9 +104,11 @@ app.post('/waiters/:username', async function(req, res) {
 });
 
 app.get("/days", async function(req, res) {
-    await waiters.groupedShifts();
+    let groupdays = await waiters.grounamepedShifts();
 
-    res.render("days");
+    res.render("days", {
+        groupdays
+    });
 });
 
 app.get('/clear', async function(req, res) {
