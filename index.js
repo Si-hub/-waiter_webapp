@@ -104,7 +104,7 @@ app.post('/waiters/:username', async function(req, res) {
 });
 
 app.get("/days", async function(req, res) {
-    let groupdays = await waiters.grounamepedShifts();
+    let groupdays = await waiters.groupedShifts();
 
     res.render("days", {
         groupdays
