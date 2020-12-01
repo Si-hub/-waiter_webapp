@@ -37,12 +37,12 @@ describe('The waiters-Availability function', function() {
 
     })
 
-    it('should add all the week days', async function() {
+    it('should return all the week days', async function() {
 
         // the Factory Function is called regFactoryFunction
         const FactoryFunction = Waiters(pool);
 
-        assert.deepEqual(await FactoryFunction.getWeekDays(), [{
+        assert.deepEqual(await FactoryFunction.getDays(), [{
                 day_name: 'Monday'
             },
             {
@@ -163,7 +163,7 @@ describe('it must not add duplicate of a user or waiter', function() {
 })
 
 describe('clear function for shifts', function() {
-    it('shouls clear all shifts', async function() {
+    it('should clear all shifts', async function() {
         const FactoryFunction = Waiters(pool);
 
         assert.deepEqual(await FactoryFunction.deleteShifts(), [])

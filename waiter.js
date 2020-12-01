@@ -77,8 +77,8 @@ module.exports = function FactoryFunction(pool) {
             }
         });
         return array
-    }
-
+    };
+    /*help to avoid duplicate on waiters names*/
     async function daysForUserChecked(name) {
         const weekdays = await getWeekDays()
         const working = await checked(name)
